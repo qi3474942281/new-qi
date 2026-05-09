@@ -79006,15 +79006,13 @@ async function unbindLoverRelationship(event, friendId) {
       <script src="draw-guess-plugin.js"></script>
 <!-- ====================== 【世界记忆 / 共同记忆】模块 ====================== -->
 <div id="worldMemoryModal" class="modal">
-    <div class="modal-content" style="max-width: 520px; width: 92%;">
+    <div class="modal-content" style="max-width:520px;width:92%;">
         <div class="modal-title">世界记忆（共同记忆）</div>
-        <p style="text-align:center; color:#666; font-size:13px; margin-bottom:15px;">所有AI好友都会知道这些记忆，他们会互相“认识”</p>
+        <p style="text-align:center;color:#666;font-size:13px;margin-bottom:15px;">所有AI好友都会知道这些记忆，他们会互相认识</p>
         
-        <button onclick="addNewWorldMemory()" class="settings-btn btn-primary" style="margin-bottom:15px; width:100%;">
-            + 新增一条共同记忆
-        </button>
+        <button onclick="addNewWorldMemory()" class="settings-btn btn-primary" style="margin-bottom:15px;width:100%;">+ 新增一条共同记忆</button>
         
-        <div id="worldMemoryList" style="max-height:420px; overflow-y:auto;"></div>
+        <div id="worldMemoryList" style="max-height:420px;overflow-y:auto;"></div>
         
         <div class="modal-buttons" style="margin-top:20px;">
             <button class="modal-btn modal-btn-cancel" onclick="closeWorldMemoryModal()">关闭</button>
@@ -79022,13 +79020,12 @@ async function unbindLoverRelationship(event, friendId) {
     </div>
 </div>
 
-<!-- 新增/编辑记忆弹窗 -->
+<!-- 编辑弹窗 -->
 <div id="editWorldMemoryModal" class="modal">
     <div class="modal-content">
         <div class="modal-title" id="worldMemoryModalTitle">新增共同记忆</div>
-        <input type="text" id="memoryTitleInput" class="modal-input" placeholder="记忆标题（例如：我们三人一起去海边旅行）">
-        <textarea id="memoryContentInput" class="modal-textarea" placeholder="详细内容（AI聊天时会自动引用这些共同记忆）" rows="6"></textarea>
-        
+        <input type="text" id="memoryTitleInput" class="modal-input" placeholder="标题（例如：我们一起去海边旅行）">
+        <textarea id="memoryContentInput" class="modal-textarea" placeholder="详细内容，AI聊天时会自动引用" rows="6"></textarea>
         <div class="modal-buttons">
             <button class="modal-btn modal-btn-cancel" onclick="closeEditWorldMemoryModal()">取消</button>
             <button class="modal-btn modal-btn-confirm" onclick="saveWorldMemory()">保存</button>
@@ -79037,7 +79034,7 @@ async function unbindLoverRelationship(event, friendId) {
 </div>
 
 <script>
-// ====================== 世界记忆模块核心代码 ======================
+// ====================== 世界记忆核心代码 ======================
 let sharedMemories = [];
 let currentEditingMemoryId = null;
 
@@ -79065,7 +79062,7 @@ function renderWorldMemoryList() {
     const container = document.getElementById('worldMemoryList');
     container.innerHTML = '';
     if (sharedMemories.length === 0) {
-        container.innerHTML = `<div style="text-align:center; padding:60px 20px; color:#999;">暂无共同记忆<br>点击上方按钮添加，全世界AI都会记住</div>`;
+        container.innerHTML = `<div style="text-align:center;padding:60px 20px;color:#999;">暂无共同记忆<br>点击上方按钮添加</div>`;
         return;
     }
     sharedMemories.forEach((mem, index) => {
@@ -79076,12 +79073,11 @@ function renderWorldMemoryList() {
                 <div class="diary-author">${mem.title}</div>
                 <div class="diary-date">${new Date(mem.timestamp).toLocaleDateString()}</div>
             </div>
-            <div class="diary-content" style="margin-top:8px; font-size:14px;">${mem.content}</div>
-            <div style="margin-top:12px; display:flex; gap:8px;">
-                <button onclick="editWorldMemory(${index}); event.stopImmediatePropagation();" class="settings-btn btn-secondary" style="flex:1; height:36px; font-size:13px;">编辑</button>
-                <button onclick="deleteWorldMemory(${index}); event.stopImmediatePropagation();" class="settings-btn btn-danger" style="flex:1; height:36px; font-size:13px;">删除</button>
-            </div>
-        `;
+            <div class="diary-content" style="margin-top:8px;font-size:14px;">${mem.content}</div>
+            <div style="margin-top:12px;display:flex;gap:8px;">
+                <button onclick="editWorldMemory(${index});event.stopImmediatePropagation()" class="settings-btn btn-secondary" style="flex:1;height:36px;font-size:13px;">编辑</button>
+                <button onclick="deleteWorldMemory(${index});event.stopImmediatePropagation()" class="settings-btn btn-danger" style="flex:1;height:36px;font-size:13px;">删除</button>
+            </div>`;
         container.appendChild(div);
     });
 }
@@ -79115,9 +79111,9 @@ async function saveWorldMemory() {
     if (!title || !content) return showAlert('标题和内容不能为空');
     
     if (currentEditingMemoryId !== null) {
-        sharedMemories[currentEditingMemoryId] = { ...sharedMemories[currentEditingMemoryId], title, content, timestamp: Date.now() };
+        sharedMemories[currentEditingMemoryId] = {...sharedMemories[currentEditingMemoryId], title, content, timestamp: Date.now()};
     } else {
-        sharedMemories.unshift({ id: 'mem_' + Date.now(), title, content, timestamp: Date.now() });
+        sharedMemories.unshift({id: 'mem_' + Date.now(), title, content, timestamp: Date.now()});
     }
     await saveSharedMemories();
     closeEditWorldMemoryModal();
@@ -79131,49 +79127,14 @@ async function deleteWorldMemory(index) {
     renderWorldMemoryList();
 }
 
-// 关键函数：让AI聊天时自动读取共同记忆
+// 关键：让AI聊天自动使用共同记忆（以后你可以在AI Prompt里调用这个函数）
 async function getSharedMemoriesPrompt() {
     await loadSharedMemories();
     if (sharedMemories.length === 0) return '';
     let prompt = `\n【世界共同记忆（所有好友都知晓）】\n`;
-    sharedMemories.forEach(mem => {
-        prompt += `• ${mem.title}：${mem.content}\n`;
-    });
+    sharedMemories.forEach(m => prompt += `• ${m.title}：${m.content}\n`);
     return prompt;
 }
-</script>
-<script>
-// ====================== 自动添加「世界记忆」入口到发现页 ======================
-function addWorldMemoryEntryToDiscover() {
-    // 等待发现页菜单容器加载完成
-    const discoverContainer = document.querySelector('#discover-content .discover-content') || 
-                              document.querySelector('.discover-content');
-    
-    if (!discoverContainer) return;
-
-    // 防止重复添加
-    if (document.getElementById('worldMemoryMenuItem')) return;
-
-    const menuHTML = `
-        <div id="worldMemoryMenuItem" class="discover-menu-item" onclick="openWorldMemoryModal()">
-            <div class="discover-menu-left">
-                <div class="discover-menu-icon">
-                    <i class="ri-book-3-line" style="color:#ff3b30; font-size:22px;"></i>
-                </div>
-                <div class="discover-menu-title">世界记忆</div>
-            </div>
-            <i class="ri-arrow-right-s-line"></i>
-        </div>
-    `;
-
-    // 插入到发现页菜单最后
-    discoverContainer.insertAdjacentHTML('beforeend', menuHTML);
-}
-
-// 页面加载完成后自动执行
-window.addEventListener('load', () => {
-    setTimeout(addWorldMemoryEntryToDiscover, 800); // 给页面一点渲染时间
-});
 </script>
 </body>
 </html>
