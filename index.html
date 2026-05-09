@@ -22397,6 +22397,12 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
         </div>
         <div class="app-label">世界书</div>
     </div>
+   <div class="app worldmemory" onclick="openRelationshipEditor()">
+    <div class="app-icon-container" id="icon-worldmemory">
+        <i class="ri-book-marked-fill"></i>
+    </div>
+    <div class="app-label"> 关系网记忆 </div>
+   </div>
     <div class="app theme" onclick="openApp('theme')">
         <div class="app-icon-container" id="icon-theme">
             <i class="ri-palette-fill"></i>
@@ -23109,6 +23115,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
                 <label class="form-label">我的人设</label>
                 <div class="form-value-display">点击选择 <i class="ri-arrow-right-s-line"></i></div>
             </div>
+    
             <!-- 新增：我的专属头像设置 -->
 <div class="form-group-row" style="border-top: 1px dashed #eee; margin-top: 10px; padding-top: 15px;">
     <label class="form-label">我在该聊天中的头像</label>
@@ -31325,136 +31332,170 @@ let tdGameState = {
     bottleAngle: 0       // 瓶子当前角度
 };
 
-// 题库 (已更新：图片全量题库 + 暧昧大冒险 + 新增暧昧真心话)
+
+   // ====================== 真心话大冒险 · 极致重口成人版（80+80条） ======================
 const TD_QUESTIONS = {
     truth: [
-        // ====== 💘 新增：暧昧/心动/极限拉扯真心话 (20条) ======
-        "如果必须在现场（或好友列表）选一个人谈恋爱，你会选谁？",
-        "在场的异性中，谁的外形最符合你的择偶标准？",
-        "有没有在某个瞬间，对在场的某个人动过心？",
-        "你觉得异性做哪个动作最让你把持不住？",
-        "能不能接受和好朋友发展成恋人关系？",
-        "如果前任现在找你复合，你会答应吗？",
-        "你手机里置顶的聊天对象是谁？",
-        "如果在场有人向你表白，你觉得谁成功的几率最大？",
-        "有没有做过关于在场某个人的春梦？（可以说没有，但不能撒谎）",
-        "你更喜欢被动接受还是主动出击？",
-        "有没有想过亲吻在场的某个人？",
-        "最近一次心跳加速是因为谁？",
-        "你觉得男女之间有纯友谊吗？",
-        "如果可以和一个异性互换身体一天，你想变成谁？去做什么？",
-        "你觉得在场谁最适合做你的终身伴侣？",
-        "此时此刻，你最想拥抱的人是谁？",
-        "有没有为了引起某人注意而故意发过朋友圈？",
-        "描述一下你理想中的完美约会。",
-        "你最受不了异性的什么诱惑？（声音、身材、眼神等）",
-        "如果今晚是世界末日，你最后想给谁打电话？",
-
-        // ====== 来自图片的 1-50 条真心话 (完整收录) ======
-        "最近一次偷偷哭是因为什么？",
-        "学生时代暗恋过谁？现在还有联系吗？",
-        "最想改掉的三个坏习惯是什么？",
-        "曾经撒过最大的谎是什么？结果如何？",
-        "目前最遗憾的一件事是什么？",
-        "偷偷存过谁的丑照？存在哪个相册？",
-        "最害怕的三种东西/场景是什么？",
-        "对在场哪个人的第一印象和现在反差最大？",
-        "最近一次熬夜是为了做什么？",
-        "曾经被朋友背叛过吗？后来怎么处理的？",
-        "最想拥有的超能力是什么？用来做什么？",
-        "上学时有没有逃过课？去哪里了？",
-        "对自己的外貌哪一点最不满意？",
-        "有没有过“社死”到想原地消失的经历？",
-        "偷偷吐槽过领导/老师的哪一点？",
-        "目前的存款有多少？（可以说区间）",
-        "最想重来的一段经历是什么？",
-        "有没有在背后说过朋友的坏话？后来后悔了吗？",
-        "最喜欢在场哪个人的性格？为什么？",
-        "曾经为了追星做过最疯狂的事是什么？",
-        "最讨厌别人的哪种行为？自己有没有过？",
-        "有没有被催婚/催婚过别人？感受如何？",
-        "上学时考试有没有作弊过？怎么作弊的？",
-        "现在心里最牵挂的人是谁？",
-        "最想辞职去从事的工作是什么？",
-        "有没有过“一见钟情”的经历？",
-        "偷偷吃过最奇怪的食物搭配是什么？",
-        "最尴尬的一次约会经历是什么？",
-        "对未来3年的规划是什么？",
-        "有没有欠过别人钱没还？为什么？",
-        "曾经被哪个瞬间治愈过？",
-        "最不喜欢自己的哪种性格特质？",
-        "上学时有没有被老师单独批评过？原因是什么？",
-        "有没有过“想逃离现在的生活”的想法？",
-        "偷偷收藏过什么别人觉得没用的东西？",
-        "最想对父母说但一直没说的话是什么？",
-        "有没有过“言不由衷”答应别人的事？",
-        "最害怕的“未来可能发生的事”是什么？",
-        "曾经和朋友闹过最大的矛盾是什么？怎么和好的？",
-        "最近一次发自内心的开心是因为什么？",
-        "有没有过“冲动消费”后特别后悔的经历？",
-        "对在场的人说一个你一直隐藏的小秘密？",
-        "最想回到哪个年龄段？为什么？",
-        "有没有过“被误解”却懒得解释的经历？",
-        "偷偷模仿过哪个明星/网红的言行？",
-        "最不擅长的事情是什么？一直不敢尝试？",
-        "曾经为了某个人改变过自己吗？结果如何？",
-        "最讨厌的季节/天气是什么？为什么？",
-        "有没有过“熬夜追剧/打游戏”到天亮的经历？",
-        "现在最想实现的小愿望是什么？",
-        
-        // ====== 经典补充 ======
-        "你的初吻是在什么时候？",
-        "如果能回到过去，你最想挽回哪段关系？",
-        "洗澡的时候会做什么奇怪的事情吗？"
+        "把你最变态的一次自慰经历完整描述出来，包括用了什么道具、最后怎么高潮喷射的",
+        "你最想被多少人同时轮奸？详细描述具体场景和玩法",
+        "你幻想过被什么动物操吗？说出来最想被哪种",
+        "你最喜欢喝什么人的体液？精液、尿液、经血还是其他？",
+        "描述一次你最想被公开露出玩弄到高潮的场景",
+        "你最重的口味是什么？包括粪便、血、针刺、极端虐待等",
+        "你曾经在公共场合偷偷高潮过几次？当时在做什么",
+        "把你最想被强奸的幻想场景详细讲出来，越变态越好",
+        "你愿意为了高潮付出什么极端代价？（被打到出血、窒息等）",
+        "你最喜欢被什么体位操到失禁？为什么",
+        "描述你最想被SM调教到崩溃的一幕（绳缚、蜡烛、针刺、电击）",
+        "你有偷偷闻过别人内裤或体液的经历吗？详细说",
+        "你最想被什么极端羞辱方式对待？（当众、宠物、厕所等）",
+        "把你幻想中被多人同时使用的情景讲出来",
+        "你最喜欢被什么体液涂满全身？",
+        "你有被亲人或家人幻想过的经历吗？说出来",
+        "你最想在什么极端环境下做爱？（医院、坟地、监狱、厕所）",
+        "描述一次你最想被虐待到哭着求饶的场景",
+        "你最喜欢被什么羞辱称呼？（母狗、肉便器、厕所等）",
+        "你幻想过被卖到地下性奴市场吗？详细说说",
+        "你最想被什么道具操到子宫/前列腺高潮？",
+        "描述你最想被公开群P的完整过程",
+        "你有被打到出血还继续高潮的经历吗？",
+        "你最喜欢被什么方式窒息玩弄？",
+        "把你最变态的梦遗内容讲出来",
+        "你幻想过被当成性奴拍卖吗？",
+        "你最想被什么极端体罚？（鞭打、蜡烛、踩踏等）",
+        "你有在别人面前尿失禁的经历吗？",
+        "描述你最想被调教成母猪的一天",
+        "你最喜欢被什么人用什么方式操？",
+        "你幻想过被强迫吃自己的体液吗？",
+        "你最想被什么羞辱游戏玩一整天？",
+        "把你最想被公开性奴的场景讲出来",
+        "你有被多人同时内射的幻想吗？",
+        "描述你最想被针刺或刀划的部位",
+        "你最喜欢被什么方式固定住玩弄？",
+        "你幻想过被当成厕所使用吗？",
+        "把你最变态的性癖完整说出来",
+        "你最想被什么动物或怪物操？",
+        "你有在公共场合被别人发现自慰的经历吗？",
+        "描述你最想被电击高潮的场景",
+        "你最喜欢被什么人当众羞辱？",
+        "你幻想过被绑起来轮流使用吗？",
+        "把你最想被打屁股到肿的细节讲出来",
+        "你最喜欢被什么体液灌满身体？",
+        "描述你最想被公开调教的完整流程",
+        "你有被强迫高潮到昏厥的幻想吗？",
+        "你最想被什么方式永久标记？",
+        "把你最变态的性幻想说出来",
+        "你幻想过被当成性玩具出租吗？",
+        "你最喜欢被什么极端方式玩弄乳头？",
+        "描述你最想被群P到子宫/前列腺喷水的场景",
+        "你有被别人尿在身上的经历吗？",
+        "你最想被什么方式固定在公共场合？",
+        "把你最想被虐待到求饶的细节讲出来",
+        "你幻想过被做成肉便器吗？",
+        "你最喜欢被什么道具插到最深？",
+        "描述你最想被公开直播调教的过程",
+        "你有被打到高潮的经历吗？",
+        "你最想被什么人用脚踩踏玩弄？",
+        "把你最变态的角色扮演幻想说出来",
+        "你幻想过被强迫吃精液/爱液吗？",
+        "你最喜欢被什么方式长时间边缘控制？",
+        "描述你最想被针刺乳头或生殖器的场景",
+        "你有在别人面前被操到失禁的幻想吗？",
+        "你最想被什么极端羞辱称呼？",
+        "把你最想被公开轮奸的完整幻想讲出来",
+        "你幻想过被做成性奴训练营吗？",
+        "你最喜欢被什么方式玩弄到喷水/射精不止？",
+        "描述你最想被蜡烛滴满全身的场景",
+        "你有被多人同时内射到溢出来的幻想吗？",
+        "你最想被什么道具塞满前后两个洞？",
+        "把你最变态的公开露出幻想说出来",
+        "你幻想过被当成厕所使用一整天吗？",
+        "你最喜欢被什么方式打到高潮？",
+        "描述你最想被SM俱乐部公开拍卖的过程",
+        "你有被强迫高潮到腿软走不动的幻想吗？",
+        "你最想被什么极端方式永久标记身体？"
     ],
     dare: [
-        // ====== 💓 暧昧/撩人/CP感大冒险 (精选替换) ======
-        "选一位异性（或指定好友），深情对视20秒，谁先笑谁输。",
-        "给列表里最近联系的一位异性发语音：“我好像有点想你了”。",
-        "模仿壁咚的姿势，对着镜头（或某人）说一句霸道总裁的台词。",
-        "选一位异性，两人十指紧扣，保持1分钟。",
-        "给在场（或聊天对象）唱一首情歌的高潮部分，要看着眼睛唱。",
-        "用撒娇的语气请求在场的一位异性帮你揉揉肩。",
-        "给列表第1位异性打电话，接通后说“没事，就是想听听你声音”，然后挂断。",
-        "模仿电视剧里的“狗血分手戏”，拉着一位异性的手演30秒。",
-        "选一位异性，在他/她耳边轻轻吹气并说一句悄悄话。",
-        "把手机壁纸换成你最喜欢的一位异性的照片，保持1天。",
-        "对一位异性说一句土味情话，直到对方脸红或笑场。",
-        "假装喝醉了，倒在一位异性的怀里（或肩膀上）靠10秒。",
-        "向一位异性借钱，理由必须是：“我想攒钱养你”。",
-        "让一位异性帮你涂护手霜/润唇膏。",
-        "发一条朋友圈：“终于等到你”，仅对特定的一位异性可见。",
-        "用嘴喂一位异性吃一样东西（如饼干、水果）。",
-        "如果你有对象，给对象发“我们结婚吧”；如果没有，给前任发“我后悔了”。",
-        "用一种极其暧昧的语气读一段说明书。",
-        "公主抱（或被公主抱）一位异性，坚持5秒。",
-        "亲吻在场一位异性的手背（或脸颊/隔着纸牌亲吻）。",
-        "坐在一位异性的大腿上（或让对方坐你腿上）坚持10秒。",
-        "让在场的一位异性闻一下你的脖子/头发味道。",
-        "和一位异性喝交杯酒（或水）。",
-        "让一位异性帮你整理头发/衣服领口。",
-        "挑选一位异性，此时此刻起称呼对方“亲爱的/宝宝”直到游戏结束。",
-        "让一位异性在你的锁骨/手臂上画一个小爱心。",
-        "和一位异性共吃一根饼干/面条（类似Lady and the Tramp）。",
-        "被一位异性从背后拥抱10秒。",
-        
-        // ====== 📷 图片里比较有趣的互动 (保留了非幼稚类的) ======
-        "给手机里第10位联系人发“我今天吃了三碗饭”，截图给大家看。",
-        "用三种方言说“我是小可爱”，每种说两遍。",
-        "找在场的人借一件物品，用夸张的方式推销它30秒。",
-        "给最近朋友圈点赞的人，评论“这个内容我能看10遍”。",
-        "模仿在场某个人的标志性动作和口头禅，让大家猜是谁。",
-        "用嘴咬着笔，在纸上写“大冒险真好玩”。",
-        "找在场的人击掌，并且说“我们是永远的好朋友”。",
-        "用普通话读一段绕口令，读3遍不卡壳。",
-        "给在场的每个人说一句不同的土味情话。",
-        "单脚站立1分钟，同时背诵《静夜思》。",
-        "给手机里的宠物表情包配3句语音，播放给大家听。",
-        "用手比心，做出5种不同的比心姿势。",
-        "假装自己是客服，耐心解答在场人提出的一个“奇葩问题”。",
-        "原地做5个俯卧撑（女生可以做跪姿），做完说“我超棒”。"
+        "立刻脱光衣服，当着大家面用手指把自己弄到高潮并叫出声",
+        "去厕所把内裤脱掉塞进嘴里含5分钟，然后拍视频发给我",
+        "把一根黄瓜/香蕉整个吞进去再慢慢拔出来，过程要录像",
+        "去阳台/窗户边完全露出下体自慰30秒，不许遮挡",
+        "把自己的精液/爱液涂满脸保持10分钟，不许擦",
+        "用皮带把自己屁股抽到红肿出血，边抽边叫",
+        "把跳蛋/震动棒开到最大塞进去，在房间里走一圈",
+        "当场表演一次最下流最骚的叫床，持续30秒",
+        "用舌头把地板上任何液体舔干净",
+        "把自己绑成龟甲缚姿势，拍一张最贱的照片发给我",
+        "喝下自己的一整泡尿，不许吐出来",
+        "把蜡烛滴在自己最敏感的部位，直到喊停",
+        "把屁股对着大家撅起来，用手把自己后面玩到流水",
+        "找一个陌生人语音，边喘边描述你现在想被怎么操",
+        "当众把内裤脱下来闻一闻再穿回去",
+        "跪在地上像母狗一样爬一圈，边爬边摇屁股",
+        "把振动棒塞进去后在房间里走一圈，不许拔出来",
+        "用舌头舔屏幕上任何一个人的脚趾或私处照片10秒",
+        "把自己私处照片拍下来发给列表里随机一个人",
+        "把自己的精液/爱液抹在嘴唇上保持到下一轮",
+        "用夹子夹住乳头和阴蒂/龟头，保持30秒",
+        "去厕所不关门，把自己弄到高潮并录音",
+        "把爱液/精液涂在镜子上写‘我是贱货’并拍照",
+        "裸体跪着用舌头舔自己的脚趾",
+        "把跳蛋塞进后面，开最大声在客厅走动",
+        "用皮带抽打自己屁股直到红肿，边抽边喊我是母狗",
+        "把一根粗蜡烛塞进后面点燃，保持10秒",
+        "当众把手指伸进自己后面玩弄并给大家看",
+        "录一段自己高潮喷水的视频发给随机好友",
+        "把自己绑起来，摆出最贱的姿势让大家拍照",
+        "喝下自己的尿然后用舌头把杯子舔干净",
+        "把振动棒塞满前后两个洞，走一圈",
+        "当众用牙签刺自己大腿内侧，拍照片",
+        "跪在地上像狗一样摇屁股求操30秒并录音",
+        "把内裤脱掉塞进自己嘴里自慰到高潮",
+        "用皮带把自己乳头抽到肿起来",
+        "去阳台完全裸体自慰，直到高潮",
+        "把自己的体液抹在脸上像面膜一样保持",
+        "录一段自己被手指玩到喷水的视频",
+        "把自己绑成M字腿姿势，拍视频发给我",
+        "用蜡烛滴满胸口和大腿内侧",
+        "当众把屁股撅起来让大家看自己后面",
+        "把跳蛋开最大塞进去，穿紧身裤走动",
+        "用舌头舔地板上的任何液体",
+        "把自己私处照片打印出来贴在镜子上",
+        "跪着用嘴含住振动棒自慰",
+        "把皮带勒在脖子上轻度窒息自慰",
+        "录一段自己叫床最骚的声音发给好友",
+        "把爱液涂满全身像涂油一样",
+        "当众用手指玩弄自己直到流水",
+        "去厕所把头伸进马桶自慰",
+        "把自己绑起来挂在门上拍照",
+        "用针轻轻刺自己最敏感的部位",
+        "录一段自己喝尿的过程",
+        "把振动棒塞进去后跳绳10下",
+        "当众表演最下流的狗爬式",
+        "用自己的体液在身上写‘肉便器’",
+        "跪在地上让大家踩自己的脸",
+        "把跳蛋塞满后面，开最大声睡觉",
+        "录一段自己被蜡烛滴到哭的视频",
+        "把自己私处涂满牙膏保持5分钟",
+        "当众把内裤脱掉闻自己的味道",
+        "用皮带把自己绑成最贱的姿势",
+        "去阳台裸体自慰并大声叫床",
+        "把自己的精液/爱液喂给自己吃",
+        "录一段自己被针刺高潮的视频",
+        "把自己绑在椅子上M字腿自慰",
+        "当众用舌头舔自己的脚",
+        "把振动棒塞进去后做深蹲",
+        "用蜡烛滴在龟头/阴蒂上",
+        "跪着像母猪一样哼叫自慰",
+        "录一段自己被打屁股到哭的视频",
+        "把自己的体液涂在嘴唇上像口红",
+        "当众把屁股撅起来给大家看",
+        "用夹子夹住全身敏感点拍照",
+        "把自己绑起来倒挂自慰",
+        "录一段自己喝自己尿的视频",
+        "当众表演最贱的母狗叫床"
     ]
-};
+       };
 
 // 1. 0.5秒的静音 MP3 Base64
 const SILENT_AUDIO_DATA = 'data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMAAAAAAAAAAAAAAA//OEAAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAAEAAABIADAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMD//////////////////////////////////////////////////////////////////wAAAAAATGF2YzU4LjU0AAAAAAAAAAAAAAAAJAAAAAAAAAAAASAAAAAAA//OEAAAAAAAAAAAAAAAAAAAAAAA//OEAAAAAAAAAAAAAAAAAAAAAAA//OEAAAAAAAAAAAAAAAAAAAAAAA//OEAAAAAAAAAAAAAAAAAAAAAAA//OEAAAAAAAAAAAAAAAAAAAAAAA//OEAAAAAAAAAAAAAAAAAAAAAAA//OEAAAAAAAAAAAAAAAAAAAAAAA//OEAAAAAAAAAAAAAAAAAAAAAAA//OEAAAAAAAAAAAAAAAAAAAAAAA//OEAAAAAAAAAAAAAAAAAAAAAAA//OEAAAAAAAAAAAAAAAAAAAAAAA//OEAAAAAAAAAAAAAAAAAAAAAAA//OEAAAAAAAAAAAAAAAAAAAAAAA';
@@ -32021,130 +32062,130 @@ let charadesActor = 'user';
 // 扩充后的词库 (包含原有词汇 + 新增的100个进阶词汇)
 let charadesWordsList = [
     // ================= 原有基础词汇 =================
-    "显眼包", "emo", "内卷", "集美", "夺笋", "恰饭", "多巴胺女孩", "哒咩", "绝绝子", "你礼貌吗",
-    "针不戳", "做爱", "泰裤辣", "破防", "告诉老默我想吃鱼了", "社死", "普信男", "摆烂", "服了你个老六",
-    "听我说谢谢你", "躺平", "恋爱脑", "疯批", "无语", "牵牛花", "布吉岛", "社交牛逼症", "社恐", "退退退",
-    "大冤种", "凡尔赛", "我真的会谢", "柠檬精", "舔狗", "沙雕", "干饭人", "神兽", "种草", "野性消费",
-    "直呼内行", "九漏鱼", "爷青回", "拿捏了", "天选之子", "互联网", "元宇宙", "小镇做题家",
-    "饭圈", "宝藏女孩", "学术妲己", "卖萌", "戏精", "背黑锅",
-    "甄嬛", "胧月", "容嬷嬷", "蒙娜丽莎", "观音菩萨", "苏大强", "飞天蝙蝠柯镇恶", "裘千尺", "段正淳",
-    "后羿射日", "贵妃醉酒", "昭君出塞", "猪八戒", "小猪佩奇", "奥特曼", "佟湘玉", "郭芙蓉",
-    "孔雀舞", "回眸一笑", "挤牙膏", "川剧变脸", "小拳拳捶你胸口", "太极拳", "抛媚眼", "牙疼",
-    "丘比特之箭", "东张西望", "芭蕾舞", "游泳", "怒发冲冠", "开拖拉机", "小兔子乖乖", "健美运动员",
-    "溜溜梅", "骑驴找马", "挠痒痒", "金鸡独立", "做核酸", "直播吃东西", "扭秧歌", "照镜子", "放风筝",
-    "扔垃圾", "跑步", "举重", "刷手机", "敲键盘", "打篮球", "踢足球", "划船", "洗澡",
-    "口罩", "卫生纸", "花露水", "打火机", "电饭煲", "拖鞋", "开瓶器", "垃圾桶", "水壶", "鼠标",
-    "隐形眼镜", "刮胡刀", "保温瓶", "头盔", "菜刀", "橡皮擦", "铅笔", "洗衣粉", "螺丝刀",
-    "西瓜刀", "洗脚水", "席子", "洗浴头", "相片", "网络电视",
-    "喜上眉梢", "鸡飞蛋打", "妖魔鬼怪", "心照不宣", "余音绕梁", "人走茶凉", "盲人摸象", "刀光剑影",
-    "七嘴八舌", "悲喜交加", "舍己救人", "眉目传情", "猪朋狗友", "一针见血", "愁眉苦脸", "花好月圆",
-    "小鸟依人", "含情脉脉", "画饼充饥", "对牛弹琴", "狼吞虎咽", "隔山打牛",
-    "西红柿炒蛋", "袖子", "星矢", "乌鸦喝水", "西红柿", "星星", "蜥蜴", "熊", "小草", "熊猫眼",
-    "雪人", "小头爸爸", "哈士奇", "甘蔗", "青椒肉丝", "树懒", "变色龙", "皮皮虾", "单身狗", "落汤鸡",
-    "癞蛤蟆", "美人鱼", "唐老鸭", "哥斯拉", "金刚",
-    "哈利波特", "灭霸", "蜘蛛侠", "钢铁侠", "海绵宝宝", "柯南", "蜡笔小新", "贞子", "僵尸",
-    "吸血鬼", "超级玛丽", "愤怒的小鸟", "植物大战僵尸", "王者荣耀",
-    "螺蛳粉", "臭豆腐", "榴莲", "皮蛋", "老干妈", "辣条", "珍珠奶茶", "麻辣烫", "火锅",
-    "烤红薯", "棉花糖", "口香糖",
-    "挤公交", "拔河", "捉迷藏", "老鹰捉小鸡", "丢手绢", "跳广场舞", "做眼保健操", "升国旗",
-    "系鞋带", "剪指甲", "敷面膜", "涂口红", "穿高跟鞋", "烫头", "纹身", "打呼噜", "梦游",
-    "上厕所没纸", "坐过站", "假发掉", "踩狗屎", "睡觉流口水", "当众放屁", "被狗追", "走路撞树",
-    "吃面溅一身", "喝水塞牙", "葛优躺", "北京瘫", "挖鼻孔", "对眼", "斗鸡眼",
-
-    // ================= 🆕 新增：情侣/暧昧进阶 (35个) =================
-    // 包含肢体接触、私密场景和恋爱状态
-    "种草莓", "咬耳朵", "膝枕", "十指紧扣", "间接接吻", "解扣子", "咬嘴唇", "同居",
-    "查岗", "吃醋", "喂食", "鸳鸯浴", "交杯酒", "人工呼吸", "偷亲", "摸头杀",
-    "怀中抱妹杀", "最萌身高差", "床咚", "强吻", "领证", "见家长", "私奔",
-    "异地恋", "网恋奔现", "冷战", "复合", "备胎", "修罗场", "宣誓主权",
-    "情侣纹身", "副驾驶", "早安吻", "晚安吻", "生理期",
-
-    // ================= 🆕 新增：物品/生活 (25个) =================
-    // 增加一些AI容易猜错的日常用品
-    "验孕棒", "安全套", "情趣内衣", "丝袜", "比基尼", "润唇膏", "指甲油", "假睫毛",
-    "增高垫", "假发片", "暖宝宝", "筋膜枪", "体重秤", "自拍杆", "充电宝",
-    "蓝牙耳机", "智能马桶", "扫地机器人", "空气炸锅", "按摩椅", "瑜伽垫",
-    "跑步机", "猫砂盆", "狗链子", "搓澡巾",
-
-    // ================= 🆕 新增：动作/状态 (25个) =================
-    // 考验描述能力的动词
-    "翻白眼", "叹气", "打嗝", "伸懒腰", "跷二郎腿", "吹口哨", "剪刀手", "比中指",
-    "wink(眨眼)", "舔屏", "磕头", "下跪", "劈叉", "倒立", "仰卧起坐",
-    "俯卧撑", "引体向上", "平板支撑", "深蹲", "扎马步", "便秘", "拉肚子",
-    "宿醉", "失眠", "做噩梦",
-
-    // ================= 🆕 新增：新潮热梗 (15个) =================
-    "尊嘟假嘟", "纯爱战士", "细狗", "纯欲", "氛围感", "没苦硬吃", "脆皮大学生",
-    "显眼包", "更适合中国宝宝体质", "质疑理解成为", "我那素未谋面的故乡",
-    "电子木鱼", "赛博朋克", "哈基米", "多喝热水"
-];
+        "巨乳","翘臀","黑丝","高跟鞋","蕾丝内裤","胸罩","吊带袜","情趣内衣","狗链","项圈",
+        "口交","深喉","后入","骑乘位","69式","潮吹","喷水","自慰","跳蛋","假鸡巴",
+        "轮奸","群P","SM调教","绳缚","蜡烛滴","针刺","电击","窒息","喝尿","吃精",
+        "母狗","肉便器","厕所奴","公开露出","被操哭","腿软","失禁","高潮脸","精液浴",
+        "兽交","血play","粪便","体液","乳交","足交","腋下","耳语调教","羞辱","母猪",
+        "子宫","内射","中出","怀孕","扩张","拳交","双插","触手","触手play","触手缠绕",
+        "被绑","龟甲缚","M字腿","后庭花","精液面膜","尿浴","血浴","鞭打","踩踏","狗爬式",
+        "公开自慰","地铁露出","电梯做爱","厕所口交","公园露出","阳台被操","KTV群P","办公室偷情",
+        "被射满脸","被内射到溢出","被操到喷水","被打到高潮","被虐到求饶","被轮到腿软",
+        "喝精液","吃爱液","舔菊花","深喉呕吐","被尿一脸","被踩脸","被吐口水","被扇耳光",
+        "乳头夹","阴蒂夹","肛塞","跳蛋遥控","扩张器","拳交","双头龙","马眼玩弄","包皮翻开","龟头电击"
+    ]
 
 // 谁是卧底词库 (包含基础、进阶、搞怪及新增词汇)
 const UC_WORDS = [
     // --- 基础常规类 ---
-    ["苹果", "香蕉"], ["咖啡", "茶"], ["火车", "飞机"], ["冰箱", "微波炉"], 
-    ["篮球", "足球"], ["猫", "狗"], ["夏天", "冬天"], ["钢琴", "吉他"], 
-    ["电影", "电视剧"], ["西瓜", "哈密瓜"], ["自行车", "摩托车"], ["玫瑰", "百合"], 
-    ["汉堡", "披萨"], ["沙滩", "雪山"], ["老虎", "狮子"], ["草莓", "樱桃"], 
-    ["雨伞", "遮阳伞"], ["火锅", "烧烤"], ["大象", "长颈鹿"], ["橙子", "柚子"], 
-    ["手表", "闹钟"], ["冰淇淋", "雪糕"], ["熊猫", "考拉"], ["葡萄", "提子"], 
-    ["电视", "电脑"], ["沙发", "椅子"], ["柠檬", "青柠"], ["海豚", "鲸鱼"], 
-    ["米饭", "面条"], ["篮球场", "足球场"], ["火车票", "飞机票"], ["西瓜汁", "橙汁"], 
-    ["滑板", "轮滑鞋"], ["玫瑰花", "康乃馨"], ["汉堡包", "三明治"], ["电影院", "剧院"], 
-    ["自行车", "电动车"], ["冰淇淋店", "甜品店"], ["图书馆", "书店"], ["火锅店", "烤肉店"], 
-    ["咖啡厅", "茶馆"], ["游泳池", "温泉"], ["篮球鞋", "跑鞋"], ["苹果手机", "安卓手机"],
+    ["手机", "跳蛋"],
+    ["充电器", "假阳具"],
+    ["耳机", "口球"],
+    ["钥匙", "钥匙链肛塞"],
+    ["杯子", "精液杯"],
+    ["筷子", "尿筷"],
+    ["镜子", "自慰镜"],
+    ["皮带", "捆绑皮带"],
+    ["蜡烛", "滴蜡蜡烛"],
+    ["夹子", "乳夹"],
+    ["绳子", "绳缚绳"],
+    ["针", "针刺针"],
+    ["胶带", "捆绑胶带"],
+    ["丝袜", "撕裂丝袜"],
+    ["内裤", "精液内裤"],
+    ["胸罩", "乳夹胸罩"],
+    ["遥控器", "跳蛋遥控器"],
+    ["手表", "手铐"],
+    ["项链", "项圈"],
+    ["戒指", "阴环"],
 
-    // --- 动物植物类 ---
-    ["兔子", "仓鼠"], ["大象", "犀牛"], ["鸽子", "麻雀"], ["玫瑰", "月季"], 
-    ["松树", "柏树"], ["荷花", "莲花"], ["草莓", "蓝莓"], ["竹子", "芦苇"], 
+    // ==================== 2. 行为类 (20对) ====================
+    ["喝水", "喝尿"],
+    ["吃饭", "吃精"],
+    ["洗澡", "被轮奸"],
+    ["睡觉", "梦遗"],
+    ["跑步", "被追奸"],
+    ["拍照", "拍裸照"],
+    ["唱歌", "叫床"],
+    ["跳舞", "扭臀求操"],
+    ["聊天", "发骚"],
+    ["刷手机", "看AV"],
+    ["健身", "SM调教"],
+    ["刷牙", "深喉后刷牙"],
+    ["洗头", "被射满头"],
+    ["涂口红", "涂精液"],
+    ["抹护肤品", "抹爱液"],
+    ["喷香水", "喷精液"],
+    ["照镜子", "自慰照镜子"],
+    ["穿衣服", "穿情趣内衣"],
+    ["脱衣服", "被撕衣服"],
+    ["弯腰", "后入姿势"],
 
-    // --- 食品饮料类 ---
-    ["粽子", "青团"], ["咖啡", "拿铁"], ["寿司", "饭团"], ["辣条", "辣片"], 
-    ["饼干", "曲奇"], ["果汁", "果粒橙"], ["包子", "馒头"], ["巧克力", "可可豆"], 
-    ["泡面", "挂面"], ["牛奶", "酸奶"], ["炒饭", "炒面"], ["火腿", "香肠"], 
-    ["苹果", "梨子"], ["陈醋", "米醋"], ["红茶", "黄茶"], ["红茶", "黑茶"], 
-    ["美式咖啡", "生椰拿铁"], ["辣椒", "芥末"], ["可口可乐", "百事可乐"], 
-    ["小笼包", "灌汤包"], ["麻辣火锅", "菌菇火锅"], ["橘子", "橙子"],
+    // ==================== 3. 食品/饮料/水果类 (20对) ====================
+    ["奶茶", "母乳"],
+    ["牛奶", "精液"],
+    ["酸奶", "精液"],
+    ["橙汁", "骚水"],
+    ["可乐", "尿"],
+    ["雪碧", "潮吹"],
+    ["果汁", "爱液"],
+    ["啤酒", "尿"],
+    ["红酒", "经血"],
+    ["白酒", "体液"],
+    ["香蕉", "肉棒"],
+    ["黄瓜", "假鸡巴"],
+    ["西瓜", "巨乳"],
+    ["桃子", "骚穴"],
+    ["葡萄", "卵蛋"],
+    ["樱桃", "乳头"],
+    ["芒果", "龟头"],
+    ["菠萝", "菊花"],
+    ["火龙果", "潮吹"],
+    ["榴莲", "臭穴"],
 
-    // --- 生活场景类 ---
-    ["学校", "培训机构"], ["医院", "诊所"], ["超市", "便利店"], ["公园", "广场"], 
-    ["酒店", "民宿"], ["健身房", "瑜伽馆"], ["餐厅", "大排档"], ["车站", "机场"], 
+    // ==================== 4. 动物/植物类 (20对) ====================
+    ["狗", "母狗"],
+    ["猫", "发情猫"],
+    ["猪", "母猪"],
+    ["马", "被马操"],
+    ["羊", "羊角操"],
+    ["鸡", "鸡巴"],
+    ["鸭", "鸭子操"],
+    ["鱼", "鱼水交"],
+    ["虾", "阴茎"],
+    ["蟹", "龟头"],
+    ["章鱼", "触手"],
+    ["海参", "阴茎"],
+    ["鲍鱼", "骚逼"],
+    ["莲藕", "母猪"],
+    ["玉米", "肛交"],
+    ["茄子", "兽交"],
+    ["萝卜", "公开露出"],
+    ["丝瓜", "体液"],
+    ["苦瓜", "血play"],
+    ["山药", "极端羞辱"],
 
-    // --- 物品用具类 ---
-    ["手机", "平板"], ["风扇", "空调"], ["筷子", "勺子"], ["枕头", "抱枕"], 
-    ["手表", "手环"], ["皮鞋", "布鞋"], ["雨衣", "雨伞"], ["台灯", "吊灯"], 
-    ["菠萝", "凤梨"], ["面包", "蛋糕"], ["围巾", "披肩"], ["春联", "福字"], 
-    ["象棋", "围棋"], ["背心", "短袖"], ["拖把", "扫帚"], ["凉鞋", "拖鞋"], 
-    ["哑铃", "杠铃"], ["汤圆", "元宵"], ["积木", "积塑"], ["积木", "乐高"], 
-    ["香瓜", "甜瓜"], ["布鞋", "板鞋"], ["银耳", "木耳"], ["花椒", "胡椒"], 
-    ["古筝", "扬琴"], ["领带", "领结"], ["球鞋", "跑鞋"], ["毛巾", "面巾"], 
-    ["电扇", "电暖"], ["橱柜", "碗柜"], ["饼干", "酥饼"], ["背心", "肚兜"], 
-    ["轿车", "客车"], ["手表", "怀表"], ["红枣", "黑枣"], ["蜡烛", "蜡笔"], 
-    ["蜂蜜", "蜂胶"], ["眉笔", "眉粉"], 
-
-    // --- 趣味脑洞与进阶搞怪类 ---
-    ["棺材", "床"], ["葬礼", "婚礼"], ["骨灰", "奶粉"], ["白酒", "红酒"], 
-    ["上学", "坐牢"], ["太监", "人妖"], ["黄片", "动作片"], ["剩女", "御姐"], 
-    ["柯南", "怪盗基德"], ["沸羊羊", "美羊羊"], ["导员", "班主任"], ["数学", "微积分"], 
-    ["红中", "发财"], ["唇膏", "口红"], ["火鸡面", "鸡屎"], ["高启强", "徐江"], 
-    ["甄嬛", "林黛玉"], ["毒气", "屁"], ["热水", "开水"], ["红楼梦", "甄嬛传"], 
-    ["大学生美育", "高中美术"], ["恋综", "非诚勿扰"], ["跑男", "极限挑战"], 
-    ["富二代", "高富帅"], ["魔术师", "魔法师"], ["生活费", "零花钱"], ["奖牌", "金牌"], 
-    ["综测", "绩点"], ["裸婚", "闪婚"], ["男同", "男双"], ["摇摇车", "碰碰车"], 
-    ["蜜蜂", "蝴蝶"],
-
-    // --- 行为状态类 ---
-    ["睡觉", "冬眠"], ["感冒", "风寒"], ["面膜", "眼罩"], ["游泳", "泡澡"], 
-    ["风筝", "纸鸢"], ["下雪", "下雨"], ["警察", "侦探"], ["飞机", "火箭"], 
-    ["减肥", "瘦身"], ["学霸", "学神"], ["相声", "小品"], ["花椒", "麻椒"], 
-    ["微博", "抖音"],
-
-    // --- 🆕 新增 20 组热门词汇 ---
-    ["麦当劳", "肯德基"], ["微信", "QQ"], ["外卖", "快递"], ["初恋", "前任"], 
-    ["结婚", "领证"], ["私聊", "群聊"], ["备胎", "舔狗"], ["男闺蜜", "男朋友"], 
-    ["御姐", "萝莉"], ["渣男", "海王"], ["蹦迪", "跳舞"], ["暧昧", "恋爱"], 
-    ["绿茶", "白莲花"], ["程序员", "黑客"], ["凡尔赛", "炫富"], ["摸鱼", "划水"], 
-    ["朋友圈", "空间"], ["吉他", "尤克里里"], ["口香糖", "泡泡糖"], ["蜘蛛侠", "蝙蝠侠"]
+    // ==================== 5. 生活场景类 (20对) ====================
+    ["厕所", "厕所奴"],
+    ["厨房", "厨房做爱"],
+    ["阳台", "阳台露出"],
+    ["电梯", "电梯群P"],
+    ["公交车", "公交车露出"],
+    ["电影院", "电影院手交"],
+    ["游泳池", "水下口交"],
+    ["健身房", "SM健身"],
+    ["医院", "医院调教"],
+    ["酒店", "酒店轮奸"],
+    ["教室", "教室后排操"],
+    ["办公室", "办公室偷情"],
+    ["公园", "公园露出"],
+    ["地铁", "地铁咸猪手"],
+    ["出租车", "出租车车震"],
+    ["KTV", "KTV群P"],
+    ["洗手间", "洗手间口交"],
+    ["卧室", "被绑在床上"],
+    ["客厅", "客厅直播"],
+    ["浴室", "浴室被操"]
 ];
 
 // NPC 名字库 (已更新为最新网名库)
@@ -42074,8 +42115,16 @@ async function generateSimAppContent(characterId, appName) {
     }).join('\n');
     
     const currentDate = new Date().toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' });
-    
-    // ✅ 核心修复 2：将完整的 fullRoleContent 喂给大模型
+    // ===== 关系网共同记忆 =====
+let sharedMemories = relationshipMemories.map(rel => ({
+    title: `${rel.personA} 与 ${rel.personB} 的关系`,
+    content: `
+关系类型：${rel.relationship}
+熟悉度：${rel.familiarity}/10
+共同记忆：${rel.memory}
+`
+}));
+
     let prompt = `你正在深度模拟角色"${character.name}"的手机，你需要生成手机中某个应用的内容。
     【【【角色完整人设与背景资料】】】: 
     ${fullRoleContent} 
@@ -42088,10 +42137,23 @@ async function generateSimAppContent(characterId, appName) {
     --- 朋友圈记录开始 ---
     ${recentMoments || '无朋友圈记录。'}
     --- 朋友圈记录结束 ---
-    
+    --- 关系网共同记忆开始 ---
+${sharedMemories.map(m => `- ${m.title}: ${m.content}`).join('\n') || '无共同记忆'}
+--- 关系网共同记忆结束 ---
+
    【【【手机模拟六大铁律 (必须严格遵守)】】】:
     1.  **【人设绝对贴合】**: 生成的所有内容必须100%基于上方的【角色完整人设与背景资料】。角色的性格、职业、秘密、社会关系必须完美映射在手机内容中。
-    2.  **【挖掘关系网】**: 如果人设资料中提到了角色的亲属、朋友、仇人、同事等具体名字，**必须优先让这些人物出现在手机记录里**！
+    2.  **【关系网优先原则】**: 如果【关系网共同记忆】中存在人物关系，
+AI必须主动引用这些角色。
+
+包括但不限于：
+
+- 聊天时主动提起对方
+- 朋友圈互动
+- 提到共同经历
+- 表达人物之间的情绪与关系变化
+- 不允许忽略已经存在的关系网人物
+关系网中的人物优先级高于随机生成路人
     3.  **【虚构边界】**: 只有当人设中没有提及足够的关系网时，你才可以根据其职业虚构合理的路人（如外卖员、老板）。严禁捏造与设定冲突的家庭成员。
     4.  **【创新原则】**: 每次生成的内容都必须是全新的，推动时间线发展。
     5.  **【时间原则】**: 所有内容的时间必须与当前日期 \`${currentDate}\` 保持逻辑一致。
@@ -79004,139 +79066,355 @@ async function unbindLoverRelationship(event, friendId) {
       <script src="notebook-plugin.js"></script>
       <script src="transmigrate-plugin.js"></script>
       <script src="draw-guess-plugin.js"></script>
-<!-- ====================== 【世界记忆 / 共同记忆】模块 ====================== -->
-<div id="worldMemoryModal" class="modal">
-    <div class="modal-content" style="max-width:520px;width:92%;">
-        <div class="modal-title">世界记忆（共同记忆）</div>
-        <p style="text-align:center;color:#666;font-size:13px;margin-bottom:15px;">所有AI好友都会知道这些记忆，他们会互相认识</p>
-        
-        <button onclick="addNewWorldMemory()" class="settings-btn btn-primary" style="margin-bottom:15px;width:100%;">+ 新增一条共同记忆</button>
-        
-        <div id="worldMemoryList" style="max-height:420px;overflow-y:auto;"></div>
-        
-        <div class="modal-buttons" style="margin-top:20px;">
-            <button class="modal-btn modal-btn-cancel" onclick="closeWorldMemoryModal()">关闭</button>
-        </div>
-    </div>
-</div>
-
-<!-- 编辑弹窗 -->
-<div id="editWorldMemoryModal" class="modal">
-    <div class="modal-content">
-        <div class="modal-title" id="worldMemoryModalTitle">新增共同记忆</div>
-        <input type="text" id="memoryTitleInput" class="modal-input" placeholder="标题（例如：我们一起去海边旅行）">
-        <textarea id="memoryContentInput" class="modal-textarea" placeholder="详细内容，AI聊天时会自动引用" rows="6"></textarea>
-        <div class="modal-buttons">
-            <button class="modal-btn modal-btn-cancel" onclick="closeEditWorldMemoryModal()">取消</button>
-            <button class="modal-btn modal-btn-confirm" onclick="saveWorldMemory()">保存</button>
-        </div>
-    </div>
-</div>
-
 <script>
-// ====================== 世界记忆核心代码 ======================
-let sharedMemories = [];
-let currentEditingMemoryId = null;
 
-async function loadSharedMemories() {
-    const data = await dbManager.get('sharedMemories', 'global');
-    sharedMemories = data ? data.items : [];
-}
+let relationshipMemories = JSON.parse(
+localStorage.getItem('relationshipMemories') || '[]'
+);
 
-async function saveSharedMemories() {
-    await dbManager.set('sharedMemories', { id: 'global', items: sharedMemories });
-}
+// 打开编辑器
+function openRelationshipEditor(){
 
-function openWorldMemoryModal() {
-    loadSharedMemories().then(() => {
-        renderWorldMemoryList();
-        document.getElementById('worldMemoryModal').classList.add('show');
-    });
-}
+    let html = `
+    <div id="relationshipModal"
+    style="
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.5);
+    z-index:999999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    ">
 
-function closeWorldMemoryModal() {
-    document.getElementById('worldMemoryModal').classList.remove('show');
-}
+        <div style="
+        width:90%;
+        max-width:700px;
+        max-height:90vh;
+        overflow:auto;
+        background:white;
+        border-radius:30px;
+        padding:25px;
+        box-sizing:border-box;
+        ">
 
-function renderWorldMemoryList() {
-    const container = document.getElementById('worldMemoryList');
-    container.innerHTML = '';
-    if (sharedMemories.length === 0) {
-        container.innerHTML = `<div style="text-align:center;padding:60px 20px;color:#999;">暂无共同记忆<br>点击上方按钮添加</div>`;
-        return;
-    }
-    sharedMemories.forEach((mem, index) => {
-        const div = document.createElement('div');
-        div.className = 'diary-item';
-        div.innerHTML = `
-            <div class="diary-meta">
-                <div class="diary-author">${mem.title}</div>
-                <div class="diary-date">${new Date(mem.timestamp).toLocaleDateString()}</div>
+            <div style="
+            font-size:42px;
+            font-weight:700;
+            margin-bottom:25px;
+            ">
+            关系网记忆
             </div>
-            <div class="diary-content" style="margin-top:8px;font-size:14px;">${mem.content}</div>
-            <div style="margin-top:12px;display:flex;gap:8px;">
-                <button onclick="editWorldMemory(${index});event.stopImmediatePropagation()" class="settings-btn btn-secondary" style="flex:1;height:36px;font-size:13px;">编辑</button>
-                <button onclick="deleteWorldMemory(${index});event.stopImmediatePropagation()" class="settings-btn btn-danger" style="flex:1;height:36px;font-size:13px;">删除</button>
-            </div>`;
-        container.appendChild(div);
+
+            <div id="relationshipList"></div>
+
+            <button onclick="addRelationshipCard()"
+            style="
+            width:100%;
+            height:60px;
+            border:none;
+            border-radius:18px;
+            background:black;
+            color:white;
+            font-size:24px;
+            margin-top:20px;
+            ">
+            新增关系
+            </button>
+
+            <button onclick="saveRelationshipMemories()"
+            style="
+            width:100%;
+            height:60px;
+            border:none;
+            border-radius:18px;
+            background:#3b82f6;
+            color:white;
+            font-size:24px;
+            margin-top:15px;
+            ">
+            保存关系网
+            </button>
+
+            <button onclick="
+            document.getElementById('relationshipModal').remove()
+            "
+            style="
+            width:100%;
+            height:60px;
+            border:none;
+            border-radius:18px;
+            background:#e5e5e5;
+            color:black;
+            font-size:24px;
+            margin-top:15px;
+            ">
+            关闭
+            </button>
+
+        </div>
+
+    </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', html);
+
+    renderRelationshipCards();
+}
+
+// 渲染
+function renderRelationshipCards(){
+
+    const list =
+    document.getElementById('relationshipList');
+
+    if(!list) return;
+
+    list.innerHTML = '';
+
+    relationshipMemories.forEach((rel,index)=>{
+
+        const participants =
+        rel.participants || [''];
+
+        list.innerHTML += `
+
+        <div class="relationshipCard"
+        style="
+        border:1px solid #eee;
+        border-radius:24px;
+        padding:20px;
+        margin-bottom:20px;
+        ">
+
+            <div class="participantsContainer">
+
+            ${participants.map(name=>`
+
+                <input
+                type="text"
+                class="participantInput"
+                value="${name}"
+                placeholder="参与人物"
+                style="
+                width:100%;
+                height:55px;
+                border:1px solid #ddd;
+                border-radius:16px;
+                padding:0 15px;
+                margin-bottom:12px;
+                box-sizing:border-box;
+                font-size:20px;
+                "
+                >
+
+            `).join('')}
+
+            <button onclick="addParticipant(this)"
+            style="
+            width:100%;
+            height:50px;
+            border:none;
+            border-radius:14px;
+            background:#f3f4f6;
+            font-size:18px;
+            margin-bottom:15px;
+            ">
+            + 新增人物
+            </button>
+
+            </div>
+
+            <select class="relationshipType"
+            style="
+            width:100%;
+            height:55px;
+            border:1px solid #ddd;
+            border-radius:16px;
+            padding:0 15px;
+            font-size:18px;
+            margin-bottom:15px;
+            ">
+
+                <option ${rel.relationship==='朋友'?'selected':''}>朋友</option>
+                <option ${rel.relationship==='恋人'?'selected':''}>恋人</option>
+                <option ${rel.relationship==='家人'?'selected':''}>家人</option>
+                <option ${rel.relationship==='同事'?'selected':''}>同事</option>
+                <option ${rel.relationship==='合作伙伴'?'selected':''}>合作伙伴</option>
+
+            </select>
+
+            <div style="
+            font-size:18px;
+            margin-bottom:10px;
+            ">
+            熟悉度：
+            <span class="familiarityValue">
+            ${rel.familiarity || 50}
+            </span>
+            </div>
+
+            <input
+            type="range"
+            min="0"
+            max="100"
+            value="${rel.familiarity || 50}"
+            class="familiaritySlider"
+            oninput="
+            this.parentElement.querySelector('.familiarityValue').innerText=this.value
+            "
+            style="
+            width:100%;
+            margin-bottom:20px;
+            "
+            >
+
+            <textarea
+            class="relationshipMemory"
+            placeholder="共同经历 / 共同记忆"
+            style="
+            width:100%;
+            height:140px;
+            border:1px solid #ddd;
+            border-radius:16px;
+            padding:15px;
+            box-sizing:border-box;
+            font-size:18px;
+            resize:none;
+            "
+            >${rel.memory || ''}</textarea>
+
+            <button onclick="deleteRelationship(${index})"
+            style="
+            margin-top:15px;
+            background:#ef4444;
+            color:white;
+            border:none;
+            border-radius:14px;
+            padding:12px 20px;
+            font-size:16px;
+            ">
+            删除关系
+            </button>
+
+        </div>
+        `;
     });
 }
 
-function addNewWorldMemory() {
-    currentEditingMemoryId = null;
-    document.getElementById('worldMemoryModalTitle').textContent = '新增共同记忆';
-    document.getElementById('memoryTitleInput').value = '';
-    document.getElementById('memoryContentInput').value = '';
-    document.getElementById('editWorldMemoryModal').classList.add('show');
-    closeWorldMemoryModal();
+// 新增关系
+function addRelationshipCard(){
+
+    relationshipMemories.push({
+        participants:[''],
+        relationship:'朋友',
+        familiarity:50,
+        memory:''
+    });
+
+    renderRelationshipCards();
 }
 
-function editWorldMemory(index) {
-    const mem = sharedMemories[index];
-    currentEditingMemoryId = index;
-    document.getElementById('worldMemoryModalTitle').textContent = '编辑共同记忆';
-    document.getElementById('memoryTitleInput').value = mem.title;
-    document.getElementById('memoryContentInput').value = mem.content;
-    document.getElementById('editWorldMemoryModal').classList.add('show');
-    closeWorldMemoryModal();
+// 新增人物
+function addParticipant(btn){
+
+    const container =
+    btn.parentElement;
+
+    const input =
+    document.createElement('input');
+
+    input.type='text';
+
+    input.placeholder='参与人物';
+
+    input.className='participantInput';
+
+    input.style.width='100%';
+    input.style.height='55px';
+    input.style.border='1px solid #ddd';
+    input.style.borderRadius='16px';
+    input.style.padding='0 15px';
+    input.style.marginBottom='12px';
+    input.style.boxSizing='border-box';
+    input.style.fontSize='20px';
+
+    container.insertBefore(input, btn);
 }
 
-function closeEditWorldMemoryModal() {
-    document.getElementById('editWorldMemoryModal').classList.remove('show');
+// 删除
+function deleteRelationship(index){
+
+    relationshipMemories.splice(index,1);
+
+    renderRelationshipCards();
 }
 
-async function saveWorldMemory() {
-    const title = document.getElementById('memoryTitleInput').value.trim();
-    const content = document.getElementById('memoryContentInput').value.trim();
-    if (!title || !content) return showAlert('标题和内容不能为空');
-    
-    if (currentEditingMemoryId !== null) {
-        sharedMemories[currentEditingMemoryId] = {...sharedMemories[currentEditingMemoryId], title, content, timestamp: Date.now()};
-    } else {
-        sharedMemories.unshift({id: 'mem_' + Date.now(), title, content, timestamp: Date.now()});
-    }
-    await saveSharedMemories();
-    closeEditWorldMemoryModal();
-    openWorldMemoryModal();
+// 保存
+function saveRelationshipMemories(){
+
+    const cards =
+    document.querySelectorAll('.relationshipCard');
+
+    relationshipMemories = [];
+
+    cards.forEach(card=>{
+
+        const participants =
+        [...card.querySelectorAll('.participantInput')]
+        .map(i=>i.value.trim())
+        .filter(v=>v);
+
+        relationshipMemories.push({
+
+            participants,
+
+            relationship:
+            card.querySelector('.relationshipType').value,
+
+            familiarity:
+            Number(card.querySelector('.familiaritySlider').value),
+
+            memory:
+            card.querySelector('.relationshipMemory').value
+
+        });
+
+    });
+
+    localStorage.setItem(
+    'relationshipMemories',
+    JSON.stringify(relationshipMemories)
+    );
+
+    alert('关系网已保存');
 }
 
-async function deleteWorldMemory(index) {
-    if (!confirm('确定删除这条共同记忆吗？所有AI好友都会忘记它。')) return;
-    sharedMemories.splice(index, 1);
-    await saveSharedMemories();
-    renderWorldMemoryList();
+// AI读取
+function getRelationshipSharedMemories(){
+
+    return relationshipMemories.map(rel=>({
+
+        title:
+        `${rel.participants.join('、')} 的关系`,
+
+        content:
+`
+参与人物：
+${rel.participants.join('、')}
+
+关系类型：
+${rel.relationship}
+
+熟悉度：
+${rel.familiarity}/100
+
+共同记忆：
+${rel.memory}
+`
+    }));
 }
 
-// 关键：让AI聊天自动使用共同记忆（以后你可以在AI Prompt里调用这个函数）
-async function getSharedMemoriesPrompt() {
-    await loadSharedMemories();
-    if (sharedMemories.length === 0) return '';
-    let prompt = `\n【世界共同记忆（所有好友都知晓）】\n`;
-    sharedMemories.forEach(m => prompt += `• ${m.title}：${m.content}\n`);
-    return prompt;
-}
 </script>
 </body>
 </html>
-
-
