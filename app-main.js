@@ -1,44 +1,54 @@
-    
-    // 打字机效果
-    const texts = ['正在初始化', '正在加载模型', '准备就绪'];
-    let textIndex = 0;
-    let charIndex = 0;
-    // 注意：我们在后面会确保 typingElement 在函数调用时是存在的
-    
-    function typeText() {
-        const typingElement = document.getElementById('typingText');
-        if (textIndex < texts.length && typingElement) {
-            if (charIndex < texts[textIndex].length) {
-                typingElement.textContent += texts[textIndex].charAt(charIndex);
-                charIndex++;
-                setTimeout(typeText, 80);
-            } else {
-                setTimeout(() => {
-                    if(typingElement) typingElement.textContent = '';
-                    charIndex = 0;
-                    textIndex++;
-                    if (textIndex < texts.length) {
-                        setTimeout(typeText, 200);
-                    }
-                }, 600);
-            }
-        }
+function initLockLoadingScreen() {
+    const wordObject = document.getElementById("lockStrokeWord");
+    const statusTime = document.getElementById("lockStatusTime");
+    const lockTime = document.getElementById("lockTime");
+
+    if (!wordObject || !statusTime || !lockTime) return;
+
+    const words = [
+        { label: "你好", src: "assets/font-trails-vector-trace/nihao-vector-trace-full.svg", duration: 7000 },
+        { label: "hello", src: "assets/font-trails-vector-trace/hello-vector-trace-full.svg", duration: 6200 },
+        { label: "哈啰", src: "assets/font-trails-vector-trace/haluo-vector-trace-full.svg", duration: 7200 },
+        { label: "hola", src: "assets/font-trails-vector-trace/hola-vector-trace-full.svg", duration: 6200 }
+    ];
+
+    let wordIndex = 0;
+
+    function formatLockTime(date) {
+        return date.toLocaleTimeString("zh-CN", {
+            hour: "numeric",
+            minute: "2-digit",
+            hour12: false
+        });
     }
 
-    // 状态提示
-    const hints = ['连接网络...', '优化响应速度...', '一切准备就绪'];
-    let hintIndex = 0;
-
-    function showHint() {
-        const hintsContainer = document.getElementById('hints');
-        if (hintIndex < hints.length && hintsContainer) {
-            hintsContainer.innerHTML = `<div class="hint active">${hints[hintIndex]}</div>`;
-            hintIndex++;
-            setTimeout(showHint, 1000);
-        }
+    function updateLockTime() {
+        const time = formatLockTime(new Date());
+        statusTime.textContent = time;
+        lockTime.textContent = time;
     }
-    
-   
+
+    function showLockWord() {
+        const word = words[wordIndex];
+        wordObject.setAttribute("aria-label", word.label);
+        wordObject.data = word.src;
+    }
+
+    function nextLockWord() {
+        wordObject.classList.add("is-switching");
+        window.setTimeout(() => {
+            wordIndex = (wordIndex + 1) % words.length;
+            showLockWord();
+            wordObject.classList.remove("is-switching");
+            window.setTimeout(nextLockWord, words[wordIndex].duration);
+        }, 230);
+    }
+
+    showLockWord();
+    updateLockTime();
+    window.setInterval(updateLockTime, 1000);
+    window.setTimeout(nextLockWord, words[wordIndex].duration);
+}
         // --- [REFACTORED] IndexedDB Manager ---
                 // --- [REFACTORED & ROBUST] IndexedDB Manager (v3) ---
         const dbManager = {
@@ -12726,45 +12736,15 @@ window.onload = async function() {
     // START: 新的核心加载逻辑
     // ===============================================================
 
-    const percentageElement = document.getElementById('percentage');
-    const progressBar = document.getElementById('progressBar');
+    initLockLoadingScreen();
 
-    // 启动视觉动画 (打字效果、状态提示)
-    setTimeout(typeText, 0);
-    setTimeout(showHint, 0);
-
-    // 任务A: 创建一个“模拟进度条”的Promise
-    const loadingAnimationPromise = new Promise(resolve => {
-        let progress = 0;
-        const animationDuration = 0; // 动画总时长
-        let startTime = null;
-
-        function animate(currentTime) {
-            if (!startTime) startTime = currentTime;
-            const elapsedTime = currentTime - startTime;
-            progress = Math.min(99, (elapsedTime / animationDuration) * 99);
-            
-            if(percentageElement) percentageElement.textContent = Math.round(progress) + '%';
-            if(progressBar) progressBar.style.width = progress + '%';
-
-            if (elapsedTime < animationDuration) {
-                requestAnimationFrame(animate);
-            } else {
-                resolve(); // 动画播放到99%，任务完成
-            }
-        }
-        requestAnimationFrame(animate);
-    });
+    const loadingAnimationPromise = Promise.resolve();
 
     // 任务B: 创建一个“真实数据加载”的Promise
     const dataLoadingPromise = loadData();
 
     // 等待 任务A 和 任务B 全部完成
     Promise.all([loadingAnimationPromise, dataLoadingPromise]).then(async () => { // <-- 在这里也加上 async
-        // 强制进度条和百分比到达 100%
-        if(percentageElement) percentageElement.textContent = '100%';
-        if(progressBar) progressBar.style.width = '100%';
-
         // 【【【核心修复：所有初始化函数都移动到了这里！！！】】】
         await dbManager.init(); 
         await requestPersistentStorage(); 

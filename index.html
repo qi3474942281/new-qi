@@ -23,41 +23,67 @@
 <body>
 
 <!-- 【【【这是修改后的正确代码，请用它替换旧的加载动画】】】 -->
-<div id="loadingOverlay" style="display: flex; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #ffffff; z-index: 10000; align-items: center; justify-content: center; color: #333333; flex-direction: column; gap: 20px; text-align: center; transition: opacity 0.5s ease;">
+<div id="loadingOverlay" style="display: flex; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #111111; z-index: 10000; align-items: stretch; justify-content: stretch; color: rgba(255, 255, 255, 0.82); transition: opacity 0.5s ease;">
     
-    <!-- START: 新的开屏动画HTML -->
-    <div class="splash-container" id="splash">
-        <!-- 对话气泡装饰 -->
-        <div class="chat-bubbles">
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-        </div>
-        
-        <!-- Logo -->
-        <div class="logo-section">
-            <div class="logo">
-                <span>j</span>
-                <span>r</span>
-                <span>s</span>
-                <span>y</span>
+    <main class="lock-loading-phone splash-container" id="splash" aria-label="jrsy loading lock screen">
+        <div class="lock-status-bar">
+            <div id="lockStatusTime">9:41</div>
+            <div class="lock-status-icons" aria-hidden="true">
+                <div class="lock-signal">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="lock-wifi"><span></span></div>
+                <div class="lock-battery"></div>
             </div>
-            <div class="ai-tag">AI ASSISTANT</div>
         </div>
-        
-        <!-- 进度条 -->
-        <div class="progress-wrapper">
-            <div class="loading-text">
-                <span class="typing-text" id="typingText"></span>
+
+        <section class="lock-loading-center">
+            <div class="lock-time" id="lockTime">9:41</div>
+            <div class="lock-word-stage" aria-live="polite">
+                <object class="lock-stroke-word" id="lockStrokeWord" data="assets/font-trails-vector-trace/nihao-vector-trace-full.svg" type="image/svg+xml" aria-label="你好"></object>
             </div>
-            <div class="percentage" id="percentage">0%</div>
-            <div class="progress-container">
-                <div class="progress-bar" id="progressBar"></div>
+            <div class="lock-loading-label" aria-live="polite">
+                <span>正在加载</span>
+                <span class="lock-spinner" aria-hidden="true">
+                    <span style="--i: 0"></span>
+                    <span style="--i: 1"></span>
+                    <span style="--i: 2"></span>
+                    <span style="--i: 3"></span>
+                    <span style="--i: 4"></span>
+                    <span style="--i: 5"></span>
+                    <span style="--i: 6"></span>
+                    <span style="--i: 7"></span>
+                    <span style="--i: 8"></span>
+                    <span style="--i: 9"></span>
+                    <span style="--i: 10"></span>
+                    <span style="--i: 11"></span>
+                </span>
+                <span class="lock-ellipsis" aria-hidden="true">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
             </div>
-            <div class="status-hints" id="hints"></div>
+        </section>
+
+        <div class="lock-quick-actions" aria-hidden="true">
+            <div class="lock-circle-button">
+                <svg width="31" height="31" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M8 2h8v3H8V2Zm1 4h6v3l1.5 2v10a1 1 0 0 1-1 1h-7a1 1 0 0 1-1-1V11L9 9V6Zm2 7.5a1 1 0 1 0 2 0a1 1 0 0 0-2 0Z"></path>
+                </svg>
+            </div>
+            <div class="lock-circle-button">
+                <svg width="32" height="32" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M9.2 5.5 10.7 4h2.6l1.5 1.5H18a3 3 0 0 1 3 3V17a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V8.5a3 3 0 0 1 3-3h3.2ZM12 17a4 4 0 1 0 0-8a4 4 0 0 0 0 8Zm0-1.7a2.3 2.3 0 1 1 0-4.6a2.3 2.3 0 0 1 0 4.6ZM18 8.8a.8.8 0 1 0 0-1.6a.8.8 0 0 0 0 1.6Z"></path>
+                </svg>
+            </div>
         </div>
-    </div>
-    <!-- END: 新的开屏动画HTML -->
+
+        <div class="lock-home-indicator" aria-hidden="true"></div>
+    </main>
 </div>
 
 <!-- 插入到 <div id="loadingOverlay">...</div> 的闭合标签 </div> 后面 -->

@@ -8011,11 +8011,11 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 #loadingOverlay {
     width: 100%;
     height: 100vh;
-    background-color: #ffffff !important; 
+    background: #111 !important;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    justify-content: stretch;
+    align-items: stretch;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", "PingFang SC", sans-serif;
     overflow: hidden;
 }
 
@@ -8025,196 +8025,305 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     box-sizing: border-box;
 }
 
-#loadingOverlay .splash-container {
-    text-align: center;
+#loadingOverlay .lock-loading-phone {
     position: relative;
-    margin-bottom: 100px;
-}
-
-
-#loadingOverlay .logo-section {
-    margin-bottom: 80px;
-}
-
-#loadingOverlay .logo {
-    font-size: 68px;
-    font-weight: 900;
-    color: #000000;
-    letter-spacing: 12px;
-    display: flex;
-    justify-content: center;
-    gap: 6px;
-    margin-bottom: 16px;
-}
-
-#loadingOverlay .logo span {
-    display: inline-block;
-    opacity: 0;
-    transform: translateY(-30px);
-    animation: jrsy_splash_letterFloat 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-#loadingOverlay .logo span:nth-child(1) { animation-delay: 0.1s; }
-#loadingOverlay .logo span:nth-child(2) { animation-delay: 0.2s; }
-#loadingOverlay .logo span:nth-child(3) { animation-delay: 0.3s; }
-#loadingOverlay .logo span:nth-child(4) { animation-delay: 0.4s; }
-
-@keyframes jrsy_splash_letterFloat {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-#loadingOverlay .ai-tag {
-    font-size: 13px;
-    font-weight: 600;
-    color: #666;
-    letter-spacing: 3px;
-    opacity: 0;
-    animation: jrsy_splash_fadeIn 0.6s ease-out 0.8s forwards;
-}
-
-
-#loadingOverlay .chat-bubbles {
-    position: absolute;
-    top: -100px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 12px;
-    opacity: 0;
-    animation: jrsy_splash_fadeIn 0.8s ease-out 0.5s forwards;
-}
-
-#loadingOverlay .bubble {
-    width: 8px;
-    height: 8px;
-    background-color: #000;
-    border-radius: 50%;
-    animation: jrsy_splash_bubblePulse 1.5s ease-in-out infinite;
-}
-
-#loadingOverlay .bubble:nth-child(2) { animation-delay: 0.2s; }
-#loadingOverlay .bubble:nth-child(3) { animation-delay: 0.4s; }
-
-@keyframes jrsy_splash_bubblePulse {
-    0%, 100% { 
-        transform: scale(1);
-        opacity: 0.3;
-    }
-    50% { 
-        transform: scale(1.4);
-        opacity: 1;
-    }
-}
-
-/* 进度条区域 */
-#loadingOverlay .progress-wrapper {
-    position: relative;
-    width: 420px;
-}
-
-#loadingOverlay .loading-text {
-    font-size: 12px;
-    font-weight: 500;
-    color: #999;
-    letter-spacing: 2px;
-    margin-bottom: 24px;
-    opacity: 0;
-    animation: jrsy_splash_fadeIn 0.6s ease-out 1s forwards;
-    height: 15px;
-}
-
-#loadingOverlay .typing-text {
-    display: inline-block;
-    border-right: 2px solid #000;
-    animation: jrsy_splash_blink 0.8s step-end infinite;
-}
-
-@keyframes jrsy_splash_blink {
-    50% { border-color: transparent; }
-}
-
-#loadingOverlay .progress-container {
-    width: 100%;
-    height: 2px;
-    background-color: #f5f5f5;
-    position: relative;
+    width: 100vw;
+    min-height: 100vh;
     overflow: hidden;
-    border-radius: 2px;
+    background:
+        radial-gradient(120vh 80vh at 18% 16%, rgba(188, 172, 126, 0.76), transparent 62%),
+        radial-gradient(92vh 92vh at 79% 73%, rgba(53, 74, 96, 0.92), transparent 68%),
+        linear-gradient(134deg, #8a7f63 0%, #8c8064 37%, #64707a 62%, #344354 100%);
+    color: rgba(255, 255, 255, 0.82);
+    isolation: isolate;
 }
 
-
-#loadingOverlay .progress-bar {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, #000 0%, #333 50%, #000 100%);
-    background-size: 200% 100%;
-    animation: 
-        jrsy_splash_shimmer 1.5s ease-in-out infinite; 
-    position: relative;
-    
-    transition: width 0.1s linear; 
-}
-
-
-@keyframes jrsy_splash_shimmer {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
-}
-
-
-#loadingOverlay .percentage {
+#loadingOverlay .lock-loading-phone::before,
+#loadingOverlay .lock-loading-phone::after {
+    content: "";
     position: absolute;
-    top: -35px;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+
+#loadingOverlay .lock-loading-phone::before {
+    background:
+        linear-gradient(90deg, rgba(128, 113, 76, 0.38), rgba(255, 255, 255, 0.06) 42%, rgba(28, 40, 56, 0.28)),
+        radial-gradient(closest-side at 51% 51%, rgba(242, 229, 182, 0.18), transparent 72%);
+    filter: blur(34px);
+    transform: scale(1.08);
+}
+
+#loadingOverlay .lock-loading-phone::after {
+    background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.18), transparent 24%, rgba(0, 0, 0, 0.17)),
+        radial-gradient(120vh 120vh at 50% 48%, transparent 50%, rgba(0, 0, 0, 0.26) 100%);
+    mix-blend-mode: multiply;
+}
+
+#loadingOverlay .lock-status-bar {
+    position: absolute;
+    top: max(25px, env(safe-area-inset-top));
+    left: 0;
     right: 0;
-    font-size: 13px;
-    font-weight: 600;
-    color: #000;
-    font-variant-numeric: tabular-nums;
-    opacity: 0;
-    animation: jrsy_splash_fadeIn 0.6s ease-out 1.2s forwards;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 47px;
+    font-size: clamp(15px, 2.85vw, 24px);
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.86);
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.24);
 }
 
+#loadingOverlay .lock-status-icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
-#loadingOverlay .status-hints {
-    margin-top: 20px;
+#loadingOverlay .lock-signal {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    width: 30px;
     height: 20px;
-    opacity: 0;
-    animation: jrsy_splash_fadeIn 0.6s ease-out 1.5s forwards;
 }
 
-#loadingOverlay .hint {
-    font-size: 11px;
-    color: #bbb;
-    letter-spacing: 1px;
-    opacity: 0;
+#loadingOverlay .lock-signal span {
+    width: 5px;
+    background: currentColor;
+    border-radius: 4px;
+}
+
+#loadingOverlay .lock-signal span:nth-child(1) { height: 7px; }
+#loadingOverlay .lock-signal span:nth-child(2) { height: 10px; }
+#loadingOverlay .lock-signal span:nth-child(3) { height: 14px; }
+#loadingOverlay .lock-signal span:nth-child(4) { height: 18px; }
+
+#loadingOverlay .lock-wifi {
+    position: relative;
+    width: 27px;
+    height: 19px;
+}
+
+#loadingOverlay .lock-wifi::before,
+#loadingOverlay .lock-wifi::after,
+#loadingOverlay .lock-wifi span {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+    border: solid currentColor;
+    border-color: currentColor transparent transparent transparent;
+    border-radius: 50%;
+    content: "";
 }
 
-#loadingOverlay .hint.active {
-    animation: jrsy_splash_hintFade 1.5s ease-in-out;
+#loadingOverlay .lock-wifi::before {
+    top: 0;
+    width: 25px;
+    height: 25px;
+    border-width: 4px 4px 0 4px;
 }
 
-@keyframes jrsy_splash_hintFade {
-    0%, 100% { opacity: 0; }
-    20%, 80% { opacity: 1; }
+#loadingOverlay .lock-wifi::after {
+    top: 7px;
+    width: 15px;
+    height: 15px;
+    border-width: 4px 4px 0 4px;
 }
 
-@keyframes jrsy_splash_fadeIn {
-    to { opacity: 1; }
+#loadingOverlay .lock-wifi span {
+    top: 15px;
+    width: 6px;
+    height: 6px;
+    border: 0;
+    background: currentColor;
 }
 
+#loadingOverlay .lock-battery {
+    position: relative;
+    width: 37px;
+    height: 18px;
+    border: 2px solid currentColor;
+    border-radius: 4px;
+    padding: 2px;
+}
+
+#loadingOverlay .lock-battery::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    right: -5px;
+    width: 3px;
+    height: 7px;
+    border-radius: 0 2px 2px 0;
+    background: currentColor;
+}
+
+#loadingOverlay .lock-battery::after {
+    content: "";
+    display: block;
+    width: 72%;
+    height: 100%;
+    border-radius: 2px;
+    background: currentColor;
+}
+
+#loadingOverlay .lock-loading-center {
+    position: absolute;
+    top: 30vh;
+    left: 50%;
+    width: 100%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+#loadingOverlay .lock-time {
+    font-size: clamp(78px, 14.8vw, 114px);
+    font-weight: 300;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.76);
+    text-shadow: 0 2px 22px rgba(0, 0, 0, 0.2);
+}
+
+#loadingOverlay .lock-word-stage {
+    width: min(320px, 48vw);
+    height: 108px;
+    margin: 12px auto 0;
+    display: grid;
+    place-items: center;
+    overflow: visible;
+}
+
+#loadingOverlay .lock-stroke-word {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    object-fit: contain;
+    object-position: center center;
+    filter: brightness(0) invert(1) blur(0.18px) drop-shadow(0 1px 14px rgba(0, 0, 0, 0.14));
+    opacity: 0.68;
+    transform: translateY(-18px) scale(0.52);
+    transform-origin: 50% 50%;
+    transition: opacity 260ms ease;
+}
+
+#loadingOverlay .lock-stroke-word.is-switching {
+    opacity: 0;
+}
+
+#loadingOverlay .lock-loading-label {
+    margin-top: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    font-size: clamp(17px, 2.6vw, 23px);
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.72);
+    text-shadow: 0 1px 16px rgba(0, 0, 0, 0.2);
+}
+
+#loadingOverlay .lock-spinner {
+    position: relative;
+    width: 27px;
+    height: 27px;
+    animation: lock-loading-spin 950ms linear infinite;
+}
+
+#loadingOverlay .lock-spinner span {
+    position: absolute;
+    top: 1px;
+    left: 50%;
+    width: 3px;
+    height: 7px;
+    margin-left: -1.5px;
+    border-radius: 999px;
+    background: currentColor;
+    transform-origin: 1.5px 12.5px;
+    opacity: calc((var(--i) + 1) / 12);
+    transform: rotate(calc(var(--i) * 30deg));
+}
+
+#loadingOverlay .lock-ellipsis {
+    display: inline-flex;
+    width: 34px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#loadingOverlay .lock-ellipsis span {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: lock-loading-dotBounce 1.1s ease-in-out infinite;
+}
+
+#loadingOverlay .lock-ellipsis span:nth-child(2) { animation-delay: 0.16s; }
+#loadingOverlay .lock-ellipsis span:nth-child(3) { animation-delay: 0.32s; }
+
+#loadingOverlay .lock-quick-actions {
+    position: absolute;
+    right: 0;
+    bottom: max(64px, calc(env(safe-area-inset-bottom) + 48px));
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 58px;
+}
+
+#loadingOverlay .lock-circle-button {
+    width: clamp(58px, 9.4vw, 70px);
+    height: clamp(58px, 9.4vw, 70px);
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.18);
+    color: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(18px);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+#loadingOverlay .lock-home-indicator {
+    position: absolute;
+    bottom: max(11px, env(safe-area-inset-bottom));
+    left: 50%;
+    width: 198px;
+    height: 7px;
+    transform: translateX(-50%);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.72);
+}
+
+#loadingOverlay svg {
+    display: block;
+}
 
 #loadingOverlay .fade-out {
-    animation: jrsy_splash_fadeOut 0.8s ease-out forwards;
+    animation: lock-loading-fadeOut 0.8s ease-out forwards;
 }
 
-@keyframes jrsy_splash_fadeOut {
+@keyframes lock-loading-spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes lock-loading-dotBounce {
+    0%, 82%, 100% {
+        transform: translateY(0);
+        opacity: 0.35;
+    }
+    42% {
+        transform: translateY(-5px);
+        opacity: 1;
+    }
+}
+
+@keyframes lock-loading-fadeOut {
     to {
         opacity: 0;
         transform: translateY(-20px);
@@ -8222,20 +8331,35 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     }
 }
 
+@media (max-width: 520px) {
+    #loadingOverlay .lock-loading-phone {
+        width: 100vw;
+        min-height: 100vh;
+    }
 
-@media (max-width: 768px) {
-    #loadingOverlay .logo {
-        font-size: 52px;
-        letter-spacing: 8px;
+    #loadingOverlay .lock-status-bar {
+        top: max(22px, env(safe-area-inset-top));
+        padding: 0 28px;
     }
-    #loadingOverlay .progress-wrapper {
-        width: 320px;
+
+    #loadingOverlay .lock-loading-center {
+        top: 30vh;
     }
-    #loadingOverlay .chat-bubbles {
-        top: -80px;
+
+    #loadingOverlay .lock-word-stage {
+        width: 64vw;
+        height: 96px;
+    }
+
+    #loadingOverlay .lock-quick-actions {
+        bottom: max(56px, calc(env(safe-area-inset-bottom) + 44px));
+        padding: 0 38px;
+    }
+
+    #loadingOverlay .lock-home-indicator {
+        width: 38vw;
     }
 }
-
 #doujinForumApp .novel-paragraph {
     display: block;
     
